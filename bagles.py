@@ -5,13 +5,13 @@
 
 import random
 
-NUM_DIGITS = 4
-MAX_GUESSES = 3
+NUM_DIGITS = 3
+MAX_GUESSES = 5
 
 
 def main():
     print(
-        f"""Bagles, a deducive logic game.
+        """Bagles, a deducive logic game.
 By DAYVIS
 
 I am thinking of a 3- digit number. Try and guess what it is.
@@ -31,21 +31,22 @@ clues would be Fermi Pico.""".format(
         print("I have thought up a number.")
         print("you have {} guesses to get it.".format(MAX_GUESSES))
 
-        numguesses = 1
-        while numguesses <= MAX_GUESSES:  # LOOPS TILL VALID GUESS
+        for guessNum in range(1,MAX_GUESSES + 1):
+            #GETS A VALID GUESS
             guess = ""
             while len(guess) != NUM_DIGITS or not guess.isdecimal():
-                print("Guess {}:".format(numguesses))
+                print("Guess {}:".format(guessNum))
                 guess = input("> ")
 
-            clues = getclues(guess, secretNum)
+            clues = getclues(guess, secretNum) # GIVES CLUES
             print(clues)
-            numguesses += 1
+
 
             if guess == secretNum:
+                print("YOU GOT IT")
 
                 break  # break loop
-        if numguesses > MAX_GUESSES:
+        else:
             print("YOU RAN OUT OF GUESSES")
             print("THE ANSWER WAS{}.".format(secretNum))
 
@@ -54,14 +55,13 @@ clues would be Fermi Pico.""".format(
             break
 
 
-print("THANKS FOR PLAYING")
 
 
 def getSecretNum():  # string of random digits
     numbers = list("0123456789")
     random.shuffle(numbers)  # shuffle them into random other
 
-    secretNum = " "
+    secretNum = ""
     for i in range(NUM_DIGITS):
         secretNum += str(numbers[i])
 
@@ -93,3 +93,5 @@ def getclues(guess, secretNum):
 # if the program is run, instead of imported , run the game:
 if __name__ == "__main__":
     main()
+    print("THANKS FOR PLAYING")
+
